@@ -1,0 +1,38 @@
+version: "3"
+services:
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus:/prometheus
+    working_dir: /prometheus
+    command: --config.file=prometheus-docker.yml
+    depends_on:
+      - node-exporter
+    networks:
+      prometheus_test:
+        aliases:
+          - prometheus
+
+  node-exporter:
+    image: quay.io/prometheus/node-exporter
+    ports:
+      - "9100:9100"
+    networks:
+      prometheus_test:
+        aliases:
+          - node-exporter
+  
+  grafana:
+    image: grafana/grafana
+    ports: 
+      - "3000:3000"
+    networks:
+      prometheus_test:
+        aliases:
+          - grafana
+
+
+networks:
+  prometheus_test:
