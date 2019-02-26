@@ -31,7 +31,7 @@ scrape_configs:
          # scheme defaults to 'http'.
 
     static_configs:
-      - targets: ['192.168.43.87:9323']
+      - targets: ['heathkang:9323']
 
   - job_name: 'node-exporter'
          # metrics_path defaults to '/metrics'

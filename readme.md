@@ -22,7 +22,12 @@
     static_configs:
       - targets: ['192.168.43.87:9323']
     ```
-    注：*因为docker和prometheus在本机同时测试，要确保docker的域名能被prometheus访问到，所以有以上ip配置，真正部署环境时不用如此复杂*
+    注：*因为docker和prometheus在本机同时测试，要确保docker的域名能被prometheus访问到，所以有以上ip配置，真正部署环境时不用如此复杂,只需填入0.0.0.0:9323*
+- 2.1 设置防火墙
+  - 允许端口访问
+    ```firewall-cmd --zone=public --add-port=9323/tcp --permanent```
+  - 允许http 协议```firewall-cmd --zone=public --add-service=http --permanent```
+  - 重载防火墙设置 ```firewall-cmd --reload```    
 
 - 3 在```config```文件夹下通过docker-compose启动相关容器，包括grafana、prometheus、node-exporter，
     ```
